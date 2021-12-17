@@ -33,6 +33,12 @@ public class LeaveController {
 //	Add
 //	Cancel
 	
+	@RequestMapping(value="/all")
+	public String listAll(Model model) {
+		model.addAttribute("leaves", lservice.listAllLeaves());
+		return "allleaves";
+	}
+	
 	//initial view of leave history of respective employee
 	@RequestMapping(value="/empl-leavehistory")
 	public String empLeaveHistSearchPage(Model model) {

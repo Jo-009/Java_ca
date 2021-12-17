@@ -18,6 +18,11 @@ public class LeaveServiceImpl implements LeaveService{
 	LeaveRepo lrepo;
 
 	//Base function	
+	@Transactional
+	public List<Leave> listAllLeaves() {
+		return lrepo.findAll();
+	}
+	
 	@Override
 	public void addLeave(Leave l) {
 		//actions to add leave
