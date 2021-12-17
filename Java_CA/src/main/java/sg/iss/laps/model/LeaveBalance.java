@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name="leavebal")
 public class LeaveBalance {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer balId;
 	@OneToOne
 	private User user;

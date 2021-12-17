@@ -22,7 +22,7 @@ import org.hibernate.validator.constraints.Length;
 @DynamicUpdate
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
 	private String email;
 	private String firstName;
@@ -146,6 +146,13 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(userId, other.userId);
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", lastLoginDate=" + lastLoginDate + ", department=" + department + ", password=" + password
+				+ ", leave=" + leave + "]";
 	}
 	
 

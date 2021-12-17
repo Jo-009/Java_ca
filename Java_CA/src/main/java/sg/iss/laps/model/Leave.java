@@ -18,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name ="leave")
 public class Leave {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer leaveId;
 //	one user to many leave
 	@ManyToOne
@@ -148,6 +148,12 @@ public class Leave {
 			return false;
 		Leave other = (Leave) obj;
 		return Objects.equals(leaveId, other.leaveId);
+	}
+	@Override
+	public String toString() {
+		return "Leave [leaveId=" + leaveId + ", user=" + user + ", status=" + status + ", reason=" + reason
+				+ ", workdissem=" + workdissem + ", type=" + type + ", appliedDate=" + appliedDate + ", startDate="
+				+ startDate + ", endDate=" + endDate + "]";
 	}
 
 	
