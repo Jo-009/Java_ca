@@ -62,10 +62,10 @@ public class JavaCaApplication {
 			LeaveType ml = LeaveType.MEDICALLEAVE; LeaveType cl = LeaveType.COMPENSATIONLEAVE;
 			LeaveType al = LeaveType.ANNUALlEAVE;
 			
-			LeaveBalance lb = new LeaveBalance(123, u, al, 50);
-			LeaveBalance lb1 = new LeaveBalance(124, u1, al, 50);
-			LeaveBalance lb2 = new LeaveBalance(125, u2, al, 50);
-			LeaveBalance lb3 = new LeaveBalance(126, u3, al, 50);
+			LeaveBalance lb = new LeaveBalance(123, u, al, 13);
+			LeaveBalance lb1 = new LeaveBalance(124, u1, ml, 10);
+			LeaveBalance lb2 = new LeaveBalance(125, u2, ml, 5);
+			LeaveBalance lb3 = new LeaveBalance(126, u3, cl, (long)2.5);
 			ArrayList<LeaveBalance> lblist = new ArrayList<LeaveBalance>();
 			lblist.add(lb);lblist.add(lb1);lblist.add(lb2);lblist.add(lb3);
 			lbrepo.saveAllAndFlush(lblist);

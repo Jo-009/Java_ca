@@ -18,13 +18,13 @@ public class LeaveBalance {
 	@OneToOne
 	private User user;
 	private LeaveType type; //enum
-	private int balance;
+	private Long balance;
 	
 	public LeaveBalance() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public LeaveBalance(Integer balId, User user, LeaveType type, int balance) {
+	public LeaveBalance(Integer balId, User user, LeaveType type, long balance) {
 		super();
 		this.balId = balId;
 		this.user = user;
@@ -49,10 +49,10 @@ public class LeaveBalance {
 	public void setType(LeaveType type) {
 		this.type = type;
 	}
-	public int getBalance() {
+	public long getBalance() {
 		return balance;
 	}
-	public void setBalance(int balance) {
+	public void setBalance(long balance) {
 		this.balance = balance;
 	}
 	@Override

@@ -33,15 +33,15 @@ public class LeaveController {
 //	Add
 //	Cancel
 	
-	//view leave history of respective employee
+	//initial view of leave history of respective employee
 	@RequestMapping(value="/empl-leavehistory")
 	public String empLeaveHistSearchPage(Model model) {
 		Leave l = new Leave();
 		model.addAttribute("leave", l);
 		return "empl-leavehistory";
 	}
-	
-	@RequestMapping(value="/empl-search")
+	//after entering employee Id, list shold appear
+	@RequestMapping(value="/search") //from empl-leavehistory search input box
 	public String searchResult(@ModelAttribute("id") @Valid Leave l, 
 			BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
