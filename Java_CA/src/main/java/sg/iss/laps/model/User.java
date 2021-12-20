@@ -154,7 +154,7 @@ public class User {
 				+ ", lastLoginDate=" + lastLoginDate + ", department=" + department + ", password=" + password
 				+ ", leave=" + leave + "]";
 	}
-	
+
 
 	
 }

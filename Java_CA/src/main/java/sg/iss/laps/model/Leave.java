@@ -1,6 +1,7 @@
 package sg.iss.laps.model;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -31,17 +32,16 @@ public class Leave {
 	@FutureOrPresent
 	@Column(name = "applieddate")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private @FutureOrPresent LocalDate appliedDate;
+	private LocalDate appliedDate;
 	@FutureOrPresent
 	@Column(name = "startdate")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private @FutureOrPresent LocalDate startDate;
+	private LocalDate startDate;
 	@FutureOrPresent
 	@Column(name = "enddate")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private @FutureOrPresent LocalDate endDate;
-
-	
+	private LocalDate endDate;
+		
 	public Leave() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -51,9 +51,7 @@ public class Leave {
 		this.status=ls;
 	}
 	public Leave(User user, LeaveStatus status, LeaveType type, String reason, String workdissem,
-			@FutureOrPresent @FutureOrPresent LocalDate appliedDate,
-			@FutureOrPresent @FutureOrPresent LocalDate startDate,
-			@FutureOrPresent @FutureOrPresent LocalDate endDate) {
+			LocalDate appliedDate, LocalDate startDate, LocalDate endDate) {
 		super();
 		this.user = user;
 		this.status = status;
@@ -65,9 +63,7 @@ public class Leave {
 		this.endDate = endDate;
 	}
 	public Leave(Integer leaveId, User user, LeaveStatus status, LeaveType type, String reason, String workdissem,
-			@FutureOrPresent @FutureOrPresent LocalDate appliedDate,
-			@FutureOrPresent @FutureOrPresent LocalDate startDate,
-			@FutureOrPresent @FutureOrPresent LocalDate endDate) {
+			@FutureOrPresent LocalDate appliedDate, @FutureOrPresent LocalDate startDate, @FutureOrPresent LocalDate endDate) {
 		super();
 		this.leaveId = leaveId;
 		this.user = user;
@@ -119,19 +115,19 @@ public class Leave {
 	public LocalDate getAppliedDate() {
 		return appliedDate;
 	}
-	public void setAppliedDate(LocalDate appliedDate) {
+	public void setAppliedDate(@FutureOrPresent LocalDate appliedDate) {
 		this.appliedDate = appliedDate;
 	}
 	public LocalDate getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(@FutureOrPresent LocalDate startDate) {
 		this.startDate = startDate;
 	}
 	public LocalDate getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate( @FutureOrPresent LocalDate endDate) {
 		this.endDate = endDate;
 	}
 	@Override
@@ -155,6 +151,8 @@ public class Leave {
 				+ ", workdissem=" + workdissem + ", type=" + type + ", appliedDate=" + appliedDate + ", startDate="
 				+ startDate + ", endDate=" + endDate + "]";
 	}
+
+	
 
 	
 

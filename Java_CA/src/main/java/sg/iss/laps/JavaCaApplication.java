@@ -1,7 +1,9 @@
 package sg.iss.laps;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -35,6 +37,7 @@ public class JavaCaApplication {
 	@Bean
 	CommandLineRunner runner() {
 		return args -> {
+//			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 			LocalDate d = LocalDate.parse("2022-02-01");
 			LocalDate d1 = LocalDate.parse("2022-02-02");
 			LocalDate d2 = LocalDate.parse("2022-02-03");

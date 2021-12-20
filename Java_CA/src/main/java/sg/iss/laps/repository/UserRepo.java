@@ -15,6 +15,9 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 	@Query("SELECT u FROM User u WHERE u.email = :email")
 	List<User> findByUserEmail(@Param("email") String email);
 	
+	@Query("SELECT u FROM User u where u.userId =:id")
+	User findById(@Param("id") Long id);
+	
 //	@Modifying
 //	@Query("UPDATE User u SET u.lastLoginDate = :date WHERE u.userId = :id")
 //	int updateUserLoginDate(@Param("date") Date date, @Param("id") UUID id);

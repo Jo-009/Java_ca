@@ -20,7 +20,12 @@ public class UserServiceImpl implements UserService{
 	public List<User> findAll() {
 		return uRepo.findAll();
 	}
-
+	
+	@Override
+	public User findUserById(Long id) {
+		return uRepo.findById(id);
+	}
+	
 	@Override
 	public User findByUserEmail(String email) {
 		List<User> result = new ArrayList<User>();
