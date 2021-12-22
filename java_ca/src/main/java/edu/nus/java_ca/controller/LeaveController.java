@@ -29,10 +29,6 @@ import edu.nus.java_ca.service.LeaveBalanceService;
 import edu.nus.java_ca.service.LeaveService;
 import edu.nus.java_ca.service.LeaveServiceImpl;
 
-
-
-
-
 @Controller
 @RequestMapping("/leave")
 public class LeaveController {
@@ -78,49 +74,49 @@ public class LeaveController {
 	}
 	//Subordinate leave history
 	//initial view of leave history of respective employee
-	@RequestMapping(value="/leaves/empl-leavehistory")
-	public String empLeaveHistSearchPage(Model model) {
-		model.addAttribute("leave", new Leave());
-		return "leaves/empl-leavehistory";
-	}
-	@PostMapping(value="/search")
-	public String searchLeavesByUserId(@RequestParam("user.userId") 
-		String UserId, Model model) {
-		ArrayList<Leave> lls = (ArrayList<Leave>) 
-				lservice.listLeavesByUserId(Long.parseLong(UserId));
-		model.addAttribute("emleaves", lls);
-		return "forward:/leave/leaves/empl-leavehistory";
-	}	
+//	@RequestMapping(value="/leaves/empl-leavehistory")
+//	public String empLeaveHistSearchPage(Model model) {
+//		model.addAttribute("leave", new Leave());
+//		return "leaves/empl-leavehistory";
+//	}
+//	@PostMapping(value="/search")
+//	public String searchLeavesByUserId(@RequestParam("user.userId") 
+//		String UserId, Model model) {
+//		ArrayList<Leave> lls = (ArrayList<Leave>) 
+//				lservice.listLeavesByUserId(Long.parseLong(UserId));
+//		model.addAttribute("emleaves", lls);
+//		return "forward:/leave/leaves/empl-leavehistory";
+//	}	
 	
 	//manager actions
-	@RequestMapping(value = "/leaves/list")
-	public String list(Model model) {
-		model.addAttribute("leaves", lservice.listLeaveToApprove());
-		return "leaves/leave-toapprove";
-	}
-	
-	@RequestMapping(value="/send/{id}")
-	public String managerSetStatus(@PathVariable("id")Long id, 
-			Model model) {
-		List<String> msetstatus = Arrays.asList("APPROVED", "REJECTED");
-		model.addAttribute("msetstatus", msetstatus);
-		model.addAttribute("leaveapplied",lservice.findLeaveById(id));
-		return "leaves/manager-setstatus";
-	}
-	
-	@PostMapping(value="/confirm")
-	public String approverejectLeave(@RequestParam("leaveId")String id, 
-		@RequestParam("mset")String mset, 
-		@RequestParam("mreason")String mrea, Model model) {
-				Leave ls = lservice.findLeaveById(Long.parseLong(id));
-				ls.setMreason(mrea);
-				LeaveStatus stat = Enum.valueOf(LeaveStatus.class, mset);
-				if(stat.equals(LeaveStatus.APPROVED))
-					lservice.approveLeave(ls);
-				if(stat.equals(LeaveStatus.REJECTED))
-					lservice.rejectLeave(ls);
-				return "forward:/leave/leaves/list";
-	}
+//	@RequestMapping(value = "/leaves/list")
+//	public String list(Model model) {
+//		model.addAttribute("leaves", lservice.listLeaveToApprove());
+//		return "leaves/leave-toapprove";
+//	}
+//	
+//	@RequestMapping(value="/send/{id}")
+//	public String managerSetStatus(@PathVariable("id")Long id, 
+//			Model model) {
+//		List<String> msetstatus = Arrays.asList("APPROVED", "REJECTED");
+//		model.addAttribute("msetstatus", msetstatus);
+//		model.addAttribute("leaveapplied",lservice.findLeaveById(id));
+//		return "leaves/manager-setstatus";
+//	}
+//	
+//	@PostMapping(value="/confirm")
+//	public String approverejectLeave(@RequestParam("leaveId")String id, 
+//		@RequestParam("mset")String mset, 
+//		@RequestParam("mreason")String mrea, Model model) {
+//				Leave ls = lservice.findLeaveById(Long.parseLong(id));
+//				ls.setMreason(mrea);
+//				LeaveStatus stat = Enum.valueOf(LeaveStatus.class, mset);
+//				if(stat.equals(LeaveStatus.APPROVED))
+//					lservice.approveLeave(ls);
+//				if(stat.equals(LeaveStatus.REJECTED))
+//					lservice.rejectLeave(ls);
+//				return "forward:/leave/leaves/list";
+//	}
 	
 //	@RequestMapping(value = "/approve/{id}")
 //	public String approveLeave(@PathVariable("id") Long id) {

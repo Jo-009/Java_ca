@@ -1,20 +1,28 @@
 package edu.nus.java_ca.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import antlr.collections.List;
 import edu.nus.java_ca.model.Department;
 import edu.nus.java_ca.model.Leave;
+import edu.nus.java_ca.model.LeaveStatus;
 import edu.nus.java_ca.model.Position;
 import edu.nus.java_ca.model.SessionClass;
 import edu.nus.java_ca.model.User;
@@ -64,26 +72,78 @@ public class ManagerApproveController {
 
 		model.addAttribute("pendingleave", pendingleave);
 		
+		
+		String	em = sess.getUserEmail(sessions);
+	    User result = uservice.findByUserEmail(em);
+		System.out.println(result.getLastName());
+		model.addAttribute("usernow", result);	
+
+		return "manager/manager";
+	}
+	
+	
+	
+//	NEW EDIT!
+	//Subordinate leave history
+	//initial view of leave history of respective employee
+	@RequestMapping(value="/leaves/empl-leavehistory")
+	public String empLeaveHistSearchPage(Model model) {
+		model.addAttribute("leave", new Leave());
+		return "leaves/empl-leavehistory";
+	}
+	@PostMapping(value="/search")
+	public String searchLeavesByUserId(@RequestParam("user.userId") 
+		String UserId, Model model) {
+		ArrayList<Leave> lls = (ArrayList<Leave>) 
+				lservice.listLeavesByUserId(Long.parseLong(UserId));
+		model.addAttribute("emleaves", lls);
+		return "forward:/manager/leaves/empl-leavehistory";
+	}	
+	//Manager Actions
+	@RequestMapping(value = "/leaves/list")
+	public String list(Model model) {
+		model.addAttribute("leaves", lservice.listLeaveToApprove());
 		return "leaves/leave-toapprove";
 	}
-	
-	@RequestMapping(value = "/leave/approve/{id}")
-	public String approveLeave(@PathVariable("id") Long id) {
-		
-		Leave leave = lservice.findLeaveById(id);
-		lservice.approveLeave(leave);
-		eService.sendEmailApprove(leave);
-		
-		
-		return "forward:/manager/manager";
+	@RequestMapping(value="/send/{id}")
+	public String managerSetStatus(@PathVariable("id")Long id, 
+			Model model) {
+		List<String> msetstatus = Arrays.asList("APPROVED", "REJECTED");
+		model.addAttribute("msetstatus", msetstatus);
+		model.addAttribute("leaveapplied",lservice.findLeaveById(id));
+		return "leaves/manager-setstatus";
 	}
-	
-	@RequestMapping(value = "/leave/reject/{id}")
-	public String rejectLeave(@PathVariable("id") Long id) {
-		Leave leave = lservice.findLeaveById(id);
-		lservice.rejectLeave(leave);
-		return "forward:/manager/manager";
+	@PostMapping(value="/confirm")
+	public String approverejectLeave(@RequestParam("leaveId")String id, 
+		@RequestParam("mset")String mset, 
+		@RequestParam("mreason")String mrea, Model model) {
+				Leave ls = lservice.findLeaveById(Long.parseLong(id));
+				ls.setMreason(mrea);
+				LeaveStatus stat = Enum.valueOf(LeaveStatus.class, mset);
+				if(stat.equals(LeaveStatus.APPROVED))
+					lservice.approveLeave(ls);
+				if(stat.equals(LeaveStatus.REJECTED))
+					lservice.rejectLeave(ls);
+				return "forward:/manager/leaves/list";
 	}
+//	@RequestMapping(value = "/leave/approve/{id}")
+//	public String approveLeave(@PathVariable("id") Long id) {
+//		
+//		Leave leave = lservice.findLeaveById(id);
+//		lservice.approveLeave(leave);
+//		eService.sendEmailApprove(leave);
+//		
+//		return "forward:/manager/home";
+//	}
+//	
+//	@RequestMapping(value = "/leave/reject/{id}")
+//	public String rejectLeave(@PathVariable("id") Long id) {
+//		Leave leave = lservice.findLeaveById(id);
+//		lservice.rejectLeave(leave);
+//		return "forward:/manager/home";
+//	}
+	
+	
 	
 	public boolean checkManager (HttpSession sessions)
 	{
@@ -96,6 +156,23 @@ public class ManagerApproveController {
 			return true;	
 		}
 		
+	}
+	
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	public ModelAndView editUser(@PathVariable Long id) {
+		ModelAndView mav = new ModelAndView("manager/manageredit", "user", uservice.findByUserId(id));
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+	public String editUser(@ModelAttribute @Valid User user, BindingResult result, 
+			@PathVariable Long id) {
+		if (result.hasErrors()) {
+			return "manager/manageredit";
+		}
+		uservice.saveUser(user);
+		return "forward:/manager/home";
 	}
 	
 	
