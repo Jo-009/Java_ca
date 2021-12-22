@@ -74,19 +74,19 @@ public class LeaveController {
 	}
 	//Subordinate leave history
 	//initial view of leave history of respective employee
-//	@RequestMapping(value="/leaves/empl-leavehistory")
-//	public String empLeaveHistSearchPage(Model model) {
-//		model.addAttribute("leave", new Leave());
-//		return "leaves/empl-leavehistory";
-//	}
-//	@PostMapping(value="/search")
-//	public String searchLeavesByUserId(@RequestParam("user.userId") 
-//		String UserId, Model model) {
-//		ArrayList<Leave> lls = (ArrayList<Leave>) 
-//				lservice.listLeavesByUserId(Long.parseLong(UserId));
-//		model.addAttribute("emleaves", lls);
-//		return "forward:/leave/leaves/empl-leavehistory";
-//	}	
+	@RequestMapping(value="/leaves/empl-leavehistory")
+	public String empLeaveHistSearchPage(Model model) {
+		model.addAttribute("leave", new Leave());
+		return "leaves/empl-leavehistory";
+	}
+	@PostMapping(value="/search")
+	public String searchLeavesByUserId(@RequestParam("user.userId") 
+		String UserId, Model model) {
+		ArrayList<Leave> lls = (ArrayList<Leave>) 
+				lservice.listLeavesByUserId(Long.parseLong(UserId));
+		model.addAttribute("emleaves", lls);
+		return "forward:/leave/leaves/empl-leavehistory";
+	}	
 	
 	//manager actions
 //	@RequestMapping(value = "/leaves/list")
