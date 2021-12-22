@@ -42,15 +42,13 @@ public class LeaveController {
 		this.lservice = lserviceImpl;
 	}
 	
-//	@Autowired
-//	private LeaveBalanceService lbservice;
-	
 	@RequestMapping(value="/leaves/all")
 	public String listAll(Model model) {
 		model.addAttribute("leaves", lservice.listAllLeaves());
 		return "leaves/allleaves";
 	}
  
+	
 	//Movement Register
 	@RequestMapping(value="/leaves/mvt-reg")
 	public String viewMvtReg(Model model) {
@@ -67,11 +65,13 @@ public class LeaveController {
 			@RequestParam("yr")String yr, Model model) throws ParseException {				
 		int mthparsed = Integer.parseInt(mth);
 		int yrparsed = Integer.parseInt(yr);
-		List<Leave> mls = lservice.findLeavesByYearandMonth
+		List<Leave> mls = lservice.findLeavesByYearandMonth	//NEW QUERY IN LSERVICE
 				(yrparsed, mthparsed);
 		model.addAttribute("mvtleaves", mls);
 		return "forward:/leave/leaves/mvt-reg";
 	}
+	
+	
 	//Subordinate leave history
 	//initial view of leave history of respective employee
 	@RequestMapping(value="/leaves/empl-leavehistory")
@@ -87,5 +87,6 @@ public class LeaveController {
 		model.addAttribute("emleaves", lls);
 		return "forward:/leave/leaves/empl-leavehistory";
 	}	
+	
 	
 }

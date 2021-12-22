@@ -59,11 +59,7 @@ public class LeaveServiceImpl implements LeaveService{
 		lrepo.save(l);		
 	}
 	
-	@Transactional
-	public List<Leave> findLeavesByDate(LocalDate d) {
-		List<Leave> mthLeave = lrepo.findLeaveByDate(d);
-		return mthLeave;
-	}
+	//NEW QUERY
 	@Transactional
 	public List<Leave> findLeavesByYearandMonth(int yy, int mm){
 		List<Leave> LeavesByMMYY = lrepo.getByYearandMonth(yy, mm);

@@ -33,7 +33,6 @@
 			<option th:each="mthlist:${mthlist}" th:value="${mthlist}"
 			th:text="${mthlist}"></option>
 			</select>
-	<!--Select Date: <input type="date" name="startDate" th:field="*{startDate}"/>	-->
 		</fieldset><br />
 		<fieldset>
 		<label>Select Year: </label><br />
@@ -53,7 +52,6 @@
 			<th>Leave Id</th>
 			<th>Employee's Name</th>>
 			<th>Leave Type</th>
-		<!--	<th>Leave Balance</th> -->
 			<th>Leave Application Date</th>
 			<th>Start Date</th>
 			<th>End Date</th>
@@ -67,7 +65,6 @@
 			<td th:text=${leave.leaveId}>Id</td>
 			<td th:text="${leave.user.firstName}"> Name</td>
 			<td th:text=${leave.type}>Leave Type</td>
-		<!--	<td th:text=${leave.user.bal}>Leave Balance</td> -->
 			<td th:text="${#temporals.format(leave.appliedDate, 'dd-MM-yyyy')}">Applied Date</td>
 			<td th:text="${#temporals.format(leave.startDate, 'dd-MM-yyyy')}">Start Date</td>
 			<td th:text="${#temporals.format(leave.endDate, 'dd-MM-yyyy')}">End Date</td>

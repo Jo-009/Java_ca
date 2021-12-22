@@ -49,12 +49,6 @@ public class ManagerApproveController {
 	
 	@Autowired
 	private EmailService eService;
-//	@Autowired
-//	private LeaveBalanceService lbservice;
-
-	
-//	Add
-//	Cancel
 	
 	@RequestMapping(value="/home")
 	public String managerDashboard(HttpSession sessions, Model model) {
@@ -81,6 +75,38 @@ public class ManagerApproveController {
 		return "manager/manager";
 	}
 	
+	
+	public boolean checkManager (HttpSession sessions)
+	{
+		SessionClass session = (SessionClass)sessions.getAttribute("uSession");
+		String emailString = session.getEmail();
+		User user = uservice.findByUserEmail(emailString);
+		Position position = user.getPosition();
+		If (position == Position.Manager);
+		{
+			return true;	
+		}
+	}
+	
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	public ModelAndView editUser(@PathVariable Long id) {
+		ModelAndView mav = new ModelAndView("manager/manageredit", "user", uservice.findByUserId(id));
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+	public String editUser(@ModelAttribute @Valid User user, BindingResult result, 
+			@PathVariable Long id) {
+		if (result.hasErrors()) {
+			return "manager/manageredit";
+		}
+		uservice.saveUser(user);
+		return "forward:/manager/home";
+	}
+	private void If(boolean b) {
+		// TODO Auto-generated method stub
+	}
 	
 	
 //	NEW EDIT!
@@ -113,42 +139,9 @@ public class ManagerApproveController {
 	}
 	
 	
-	public boolean checkManager (HttpSession sessions)
-	{
-		SessionClass session = (SessionClass)sessions.getAttribute("uSession");
-		String emailString = session.getEmail();
-		User user = uservice.findByUserEmail(emailString);
-		Position position = user.getPosition();
-		If (position == Position.Manager);
-		{
-			return true;	
-		}
-		
-	}
-	
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	public ModelAndView editUser(@PathVariable Long id) {
-		ModelAndView mav = new ModelAndView("manager/manageredit", "user", uservice.findByUserId(id));
-
-		return mav;
-	}
-
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public String editUser(@ModelAttribute @Valid User user, BindingResult result, 
-			@PathVariable Long id) {
-		if (result.hasErrors()) {
-			return "manager/manageredit";
-		}
-		uservice.saveUser(user);
-		return "forward:/manager/home";
-	}
 	
 	
 
-	private void If(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	
 }
