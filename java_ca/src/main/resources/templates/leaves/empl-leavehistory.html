@@ -23,9 +23,10 @@
 		<form action="#" th:object="${leave}" th:action="@{/leave/search}"
 		 method="post">
 	  		<fieldset>
-				Employee ID: <input type="text" th:field="*{user.userId}" />
+				<label>Employee ID: </label><br />
+				<input type="text" th:field="*{user.userId}" />
 				<p th:if="${#fields.hasErrors('user.userId')}" th:errors="*{user.userId}"></p>
-			</fieldset>
+			</fieldset><br />
 			<fieldset>
 				<input type="submit" value="Search"/>
 			</fieldset>
@@ -59,9 +60,9 @@
 			<td th:text="${leave.reason}">Reason</td>
 			<td th:text="${leave.workdissem}">Work Dissemination</td>
 			<td th:text="${leave.status}">status</td>	
-			<td th:text="${leave.mreason}">Manager's Reason</td>
-				
+			<td th:text="${leave.mreason}">Manager's Reason</td>			
 		</tr>
+		
 	</table>
 	</div>
 	</main>

@@ -28,22 +28,24 @@
 		<form action="#" th:object="${leave}" th:action="@{/leave/view}"
 		 method="post">
 		<fieldset>
-		Select Month: <select name="mth" style="height: 25px; width: 160px">
+		<label>Select Month: </label><br />
+		<select name="mth" style="height: 25px; width: 160px">
 			<option th:each="mthlist:${mthlist}" th:value="${mthlist}"
 			th:text="${mthlist}"></option>
 			</select>
 	<!--Select Date: <input type="date" name="startDate" th:field="*{startDate}"/>	-->
-		</fieldset>
+		</fieldset><br />
 		<fieldset>
-		Select Year: <select name="yr" style="height: 25px; width: 160px">
+		<label>Select Year: </label><br />
+		<select name="yr" style="height: 25px; width: 160px">
 			<option th:each="yrlist:${yrlist}" th:value="${yrlist}"
 			th:text="${yrlist}"></option>
 			</select>
-		</fieldset>
+		</fieldset><br />
 		<fieldset>
 			<input type="submit" value="View"/>
 		</fieldset>
-	</form>	
+	</form>	<br />
 	
 		<h2 th:if="${not #lists.isEmpty(mvtleaves)}">Leaves: </h2>
 	<table th:if="${not #lists.isEmpty(mvtleaves)}" >

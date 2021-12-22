@@ -88,48 +88,4 @@ public class LeaveController {
 		return "forward:/leave/leaves/empl-leavehistory";
 	}	
 	
-	//manager actions
-//	@RequestMapping(value = "/leaves/list")
-//	public String list(Model model) {
-//		model.addAttribute("leaves", lservice.listLeaveToApprove());
-//		return "leaves/leave-toapprove";
-//	}
-//	
-//	@RequestMapping(value="/send/{id}")
-//	public String managerSetStatus(@PathVariable("id")Long id, 
-//			Model model) {
-//		List<String> msetstatus = Arrays.asList("APPROVED", "REJECTED");
-//		model.addAttribute("msetstatus", msetstatus);
-//		model.addAttribute("leaveapplied",lservice.findLeaveById(id));
-//		return "leaves/manager-setstatus";
-//	}
-//	
-//	@PostMapping(value="/confirm")
-//	public String approverejectLeave(@RequestParam("leaveId")String id, 
-//		@RequestParam("mset")String mset, 
-//		@RequestParam("mreason")String mrea, Model model) {
-//				Leave ls = lservice.findLeaveById(Long.parseLong(id));
-//				ls.setMreason(mrea);
-//				LeaveStatus stat = Enum.valueOf(LeaveStatus.class, mset);
-//				if(stat.equals(LeaveStatus.APPROVED))
-//					lservice.approveLeave(ls);
-//				if(stat.equals(LeaveStatus.REJECTED))
-//					lservice.rejectLeave(ls);
-//				return "forward:/leave/leaves/list";
-//	}
-	
-//	@RequestMapping(value = "/approve/{id}")
-//	public String approveLeave(@PathVariable("id") Long id) {
-//		lservice.approveLeave(lservice.findLeaveById(id));
-//		return "forward:/leave/leaves/list";
-//	}
-//	
-//	//rejection require comment
-//	@RequestMapping(value = "/reject/{id}")
-//	public String rejectLeave(@PathVariable("id") Long id) {
-//		lservice.rejectLeave(lservice.findLeaveById(id));
-//		return "forward:/leave/leaves/list";
-//	}
-
-	
 }
